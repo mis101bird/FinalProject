@@ -1,6 +1,6 @@
 # FinalProject
-Dear Maria, Thaer
-Here is final project for CS3715 Final Project.
+Dear all
+Here is final project for CS3715 Final Project.\n
 Maria part:
 
 Thaer part:
