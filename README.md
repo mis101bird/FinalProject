@@ -1,2 +1,10 @@
 # FinalProject
-For CS3715 Final Project
+Dear Maria, Thaer
+Here is final project for CS3715 Final Project.
+Maria part:
+
+Thaer part:
+
+Hsuan-Ju part:
+
+Database:
