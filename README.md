@@ -59,7 +59,7 @@ looking bootstrap about RWD!!
 ####book table:
 <table>
 <tr>
-<th>BID</th><td>name</td><td>author</td><td>status</td><td>cover</td><td>description</td><td>category</td>
+<th>01</th><td>The Pale King</td><td>David Foster Wallace</td><td>Changable field!!</td><td><img src="http://1.bp.blogspot.com/-XsYyZHhWAng/TkmDh10R3fI/AAAAAAAAEGo/UgOJFfXR4UQ/s1600/006.jpg" alt="For some reason the image provided could not be loaded"></td><td>description</td><td>friction</td>
 </tr>
 <tr>
 <td>book id</td><td>book name</td><td>book's author</td><td>borrow/free</td><td>img/XXX.png</td><td>about the book</td><td>Science/Food/Literature/etc..</td>
