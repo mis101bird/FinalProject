@@ -26,6 +26,43 @@ forget password page: sent mail to student about password.
 looking bootstrap about RWD!!
 
 ##Database:
-ask teacher.
 
+*bold one is foreign key or primary key.
+
+####account table:
+<table>
+<tr>
+<th>UID</th><td>name</td><td>password</td>
+</tr>
+<tr>
+<td>User id</td><td></td><td></td>
+</tr>
+</table>
+####borrow table:
+<table>
+<tr>
+<th>UID</th><th>BID</th><td>deadline</td>
+</tr>
+<tr>
+<td>User id</td><td>book id</td><td>borrow deadline</td>
+</tr>
+</table>
+####reservation table:
+<table>
+<tr>
+<th>UID</th><th>BID</th>
+</tr>
+<tr>
+<td>User id</td><td>book id</td>
+</tr>
+</table>
+####book table:
+<table>
+<tr>
+<th>BID</th><td>name</td><td>author</td><td>status</td><td>cover</td><td>description</td><td>category</td>
+</tr>
+<tr>
+<td>book id</td><td>book name</td><td>book's author</td><td>borrow/free</td><td>img/XXX.png</td><td>about the book</td><td>Science/Food/Literature/etc..</td>
+</tr>
+</table>
 Notes: Admin page which deletes and modify user's account.
