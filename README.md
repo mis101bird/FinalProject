@@ -59,10 +59,13 @@ looking bootstrap about RWD!!
 ####book table:
 <table>
 <tr>
-<th>01</th><td>The Pale King</td><td>David Foster Wallace</td><td>Changable field!!</td><td><img src="http://1.bp.blogspot.com/-XsYyZHhWAng/TkmDh10R3fI/AAAAAAAAEGo/UgOJFfXR4UQ/s1600/006.jpg" alt="For some reason the image provided could not be loaded"></td><td>description</td><td>friction</td>
+<th>Book Id</th><td>Book Name</td><td>Author</td><td>available or borrowd</td><td></td><td>description</td>book's cover photo <td>Category</td>
 </tr>
 <tr>
-<td>book id</td><td>book name</td><td>book's author</td><td>borrow/free</td><td>img/XXX.png</td><td>about the book</td><td>Science/Food/Literature/etc..</td>
+<td>Book Id</td><td>book name</td><td>Book's Author</td><td>Borrowd/available</td><td>src=img"---"</td><td>about the book</td><td>Science/Food/Literature/etc..</td>
+</tr>
+<tr>
+<td>01</td><td>The Pale King</td><td>David Foster Wallace</td><td>Changable state</td><td><img src="https://thomaslegendre.files.wordpress.com/2012/01/pale-king-cover.jpg" alt="some_text"></td><tdIn his magnificent book left unfinished at his death, David Foster Wallace anatomizes contemporary American sadness and boredom by investigating its Internal Revenue System. The result: a hilarious, truthful, and embittered vision of late-model capitalism and its discontents. Laura Miller moderates this conversation—which took place at the 2011 PEN World Voices Festival just after publication of The Pale King—between authors Rick Moody and Sandro Veronesi and editor Michael Pietsch about their relationships to Wallace and his writing.</td><td>Friction</td>
 </tr>
 </table>
 Notes: Admin page which deletes and modify user's account.
