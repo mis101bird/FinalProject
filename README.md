@@ -59,7 +59,7 @@ looking bootstrap about RWD!!
 ####book table:
 <table>
 <tr>
-<th>Book Id</th><td>Book Name</td><td>Author</td><td>available or borrowd</td><td>Book's cover</td><td>description</td><td>book's cover photo</td><td>Category</td>
+<th>Book Id</th><td>Book Name</td><td>Author</td><td>available or borrowd</td><td>Book's cover</td><td>description</td><td>Category</td>
 </tr>
 <tr>
 <td>Book Id</td><td>book name</td><td>Book's Author</td><td>Borrowd/available</td>Cover of the book<td>src=img"---"</td><td>about the book</td><td>Science/Food/Literature/etc..</td>
