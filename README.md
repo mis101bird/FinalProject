@@ -59,10 +59,10 @@ looking bootstrap about RWD!!
 ####book table:
 <table>
 <tr>
-<th>Book Id</th><td>Book Name</td><td>Author</td><td>available or borrowd</td><td>Book's cover</td><td>description</td><td>Category</td>
+<th>BID</th><td>name</td><td>author</td><td>status</td><td>cover</td><td>description</td><td>category</td>
 </tr>
 <tr>
-<td>Book Id</td><td>book name</td><td>Book's Author</td><td>Borrowd/available</td>Cover of the book<td>src=img"---"</td><td>about the book</td><td>Science/Food/Literature/etc..</td>
+<td>Book Id</td><td>book name</td><td>Book's Author</td><td>Borrowd/available</td>Cover of the book<td>XXX.png</td><td>about the book</td><td>Science/Food/Literature/etc..</td>
 </tr>
 <tr>
 <td>01</td><td>"The Pale King"</td><td>David Foster Wallace</td><td>Changable state</td><td><img src="https://thomaslegendre.files.wordpress.com/2012/01/pale-king-cover.jpg" alt="some_text"></td><td>In his magnificent book left unfinished at his death, David Foster Wallace anatomizes contemporary American sadness and boredom by investigating its Internal Revenue System. The result: a hilarious, truthful, and embittered vision of late-model capitalism and its discontents. Laura Miller moderates this conversation—which took place at the 2011 PEN World Voices Festival just after publication of The Pale King—between authors Rick Moody and Sandro Veronesi and editor Michael Pietsch about their relationships to Wallace and his writing.</td><td>Friction</td>
