@@ -14,7 +14,7 @@ import spark.Response;
 public class ResponsePage {
 
  public String indexAfterLonin(){
- 
+ return ""; 
  }
 
 }

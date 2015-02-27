@@ -1,7 +1,5 @@
 import static spark.Spark.get;
 import static spark.Spark.post;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import static spark.Spark.externalStaticFileLocation;
 import spark.Session;
 
@@ -19,13 +17,14 @@ public class Server {
        externalStaticFileLocation("static");
 
        get("/index", (request, response) -> {
-       User user = request.session().attribute("user");     
-       if (user==null) {
+        String user = request.session().attribute("user");     
+        if (user==null) {
                 response.redirect("/index.html");
-                return;
+                return null;
             }
-       
-       );
+        return "";
+
+        });
      
    }
 }
