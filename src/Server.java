@@ -18,6 +18,14 @@ public class Server {
 
        externalStaticFileLocation("static");
 
+       get("/index", (request, response) -> {
+       User user = request.session().attribute("user");     
+       if (user==null) {
+                response.redirect("/index.html");
+                return;
+            }
+       
+       );
      
    }
 }
