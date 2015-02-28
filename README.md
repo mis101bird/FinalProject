@@ -22,9 +22,11 @@ Search Engine page : post find a text named "search" , seach in database, show i
 2-index.html: have before-index and after-index, iframe for login-logout, place for sign up, after-index will show student's detail.
 
 forget password page: sent mail to student about password.
+##Bootstrap Framework:
+Bootstrap just a framework writen by css and javascript. We can see the bootstraps document and use it's class in our own webpage:
 
-looking bootstrap about RWD!!
-
+<a herf="http://www.w3schools.com/bootstrap/">W3C bootstrap tutorial</a>
+<a herf="http://bootstrapdocs.com/v3.2.0/docs/components/#top">Bootstrap official tutorial</a>
 ##Database:
 
 *bold one is foreign key or primary key.
