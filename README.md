@@ -25,8 +25,10 @@ forget password page: sent mail to student about password.
 ##Bootstrap Framework:
 Bootstrap just a framework writen by css and javascript. We can see the bootstraps document and use it's class in our own webpage:
 
-<a herf="http://www.w3schools.com/bootstrap/">W3C bootstrap tutorial</a>
-<a herf="http://bootstrapdocs.com/v3.2.0/docs/components/#top">Bootstrap official tutorial</a>
+<a href="http://www.w3schools.com/bootstrap/">W3C bootstrap tutorial</a>
+
+
+<a href="http://bootstrapdocs.com/v3.2.0/docs/components/#top">Bootstrap official tutorial</a>
 ##Database:
 
 *bold one is foreign key or primary key.
