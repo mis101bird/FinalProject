@@ -47,7 +47,7 @@
     </target>
 
     <target name="project" depends="compile">
-        <java classname="SQLiteJDBC" fork="true">
+        <java classname="Server" fork="true">
             <classpath>
                 <pathelement path="${dest.dir}"/>
                 <path refid="lib-jars"/>

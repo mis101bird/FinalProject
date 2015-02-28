@@ -19,10 +19,13 @@ public class Server {
        get("/index", (request, response) -> {
         String user = request.session().attribute("user");     
         if (user==null) {
+                Session sess = request.session(true);
+                sess.attribute("user", "201461621");
                 response.redirect("/index.html");
                 return null;
             }
-        return "";
+        response.redirect("/demo.html");
+        return null;
 
         });
      
