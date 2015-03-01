@@ -6,18 +6,29 @@ html,body{height:100%; background:#B6866F;}
 .h_iframe iframe {position:absolute;top:30;left:0;width:100%; height:100%;}
 
 </style>
+<link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav>
-<form action="logout.html">
-  Student account: <input type="text" name="account">
-  Password: <input type="text" name="password">
-  <input type="submit" value="login">
-  <a href="">forgot password</a>
-</form><span id="wrong"></span>
-    <div class="h_iframe">
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-left" role="navigation">
+<div class="container">
+<a class="navbar-brand">OnlineLibrary</a>
+<ul class="nav navbar-nav">
+   <li class="active">
+<form class="navbar-form navbar-left" role="search" action="logout.html">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Account">
+		  <input type="text" class="form-control" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-default">Login</button>
+		<span id="wrong" style="color:red;">Wrong password</span>
+      </form>
+   </li>
+   <li><a href="#">Forgot Password</a></li>
+</ul>
+</div>
+</nav>
+<div class="h_iframe">
         <iframe  src="index" frameborder="0"></iframe>
     </div>
-</nav>
 </body>
 </html>
