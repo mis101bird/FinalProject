@@ -36,7 +36,7 @@ Bootstrap just a framework writen by css and javascript. We can see the bootstra
 ####account table:
 <table>
 <tr>
-<th>UID</th><td>name</td><td>password</td>
+<th>UID</th><td>name</td><td>password</td><td>email</td>
 </tr>
 <tr>
 <td>User id</td><td></td><td></td>
@@ -67,9 +67,6 @@ Bootstrap just a framework writen by css and javascript. We can see the bootstra
 </tr>
 <tr>
 <td>Book Id</td><td>book name</td><td>Book's Author</td><td>Borrowd/available</td>Cover of the book<td>XXX.png</td><td>about the book</td><td>Science/Food/Literature/etc..</td>
-</tr>
-<tr>
-<td>01</td><td>"The Pale King"</td><td>David Foster Wallace</td><td>Changable state</td><td><img src="https://thomaslegendre.files.wordpress.com/2012/01/pale-king-cover.jpg" alt="some_text"></td><td>In his magnificent book left unfinished at his death, David Foster Wallace anatomizes contemporary American sadness and boredom by investigating its Internal Revenue System. The result: a hilarious, truthful, and embittered vision of late-model capitalism and its discontents. Laura Miller moderates this conversation—which took place at the 2011 PEN World Voices Festival just after publication of The Pale King—between authors Rick Moody and Sandro Veronesi and editor Michael Pietsch about their relationships to Wallace and his writing.</td><td>Friction</td>
 </tr>
 </table>
 Notes: Admin page which deletes and modify user's account.
