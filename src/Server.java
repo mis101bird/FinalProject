@@ -1,5 +1,5 @@
+import javax.mail.PasswordAuthentication;
 import java.util.*;
-import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 import static spark.Spark.get;
@@ -7,6 +7,9 @@ import static spark.Spark.post;
 import static spark.Spark.externalStaticFileLocation;
 import spark.Session;
 import java.sql.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
 
 public class Server {
 
@@ -34,10 +37,10 @@ public class Server {
 
         });
        post("/forget", (request, response) -> {
-           String ps="";
-           String n="We cannot find your info." ;
+           String pw="";
+           String mes="We cannot find your info. Please submit again." ;
            String email=request.queryParams("email");
-           System.out.println("go forget successfully");
+           System.out.println("go forget successfully:email="+email);
              Connection c = null;
 
     try {
@@ -52,13 +55,13 @@ public class Server {
     Statement stmt = null;           
     Class.forName("org.sqlite.JDBC");                                                                                            
     stmt = c.createStatement();                                                                          
-    String sql = "SELECT * FROM NOTE WHERE email='"+email+"';";
+    String sql = "SELECT * FROM ACCOUNT WHERE email='"+email+"';";
     ResultSet r = stmt.executeQuery(sql);
     if(r.next()){
     pw=r.getString("password");
-    n=r.getString("name");
+    mes="Please check your mail.";
     System.out.println("show old message successfully");
-    if(sendMail(pw,mail)){
+    if(sendMail(pw,email)){
     System.out.println("send mail successfully");
     }else{
     System.out.println("send mail wrong");
@@ -72,24 +75,28 @@ public class Server {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
     }   
 
-             return n;  
+             return mes;  
 
        });
        
    }
-public boolean sendMail(String pw , String m){
-      // Recipient's email ID needs to be mentioned.
+static public boolean sendMail(String pw , String m){
+// Recipient's email ID needs to be mentioned.
+
       String to = m;
+
       // Sender's email ID needs to be mentioned
-      String from = "@gmail.com";
+      String from = "onlinelibrary@server.com";
       // Assuming you are sending email from localhost
-      String host = "localhost";
+      String host = "mail.smtp.localhost";
       // Get system properties
       Properties properties = System.getProperties();
       // Setup mail server
       properties.setProperty("mail.smtp.host", host);
+      properties.put("mail.smtp.port", "465");
       // Get the default Session object.
-      Session session = Session.getDefaultInstance(properties);
+      javax.mail.Session session = javax.mail.Session.getDefaultInstance(properties);
+
       try{
          // Create a default MimeMessage object.
          MimeMessage message = new MimeMessage(session);
@@ -104,10 +111,11 @@ public boolean sendMail(String pw , String m){
          message.setText("Your password is "+pw);
 
          // Send message
-         Transport.send(message);
-         return true;
-
+         Transport transport = session.getTransport("smtp");
+         transport.connect("smtp.gmail.com", "mis101bird", "abcd4723ccc");
+         transport.send(message);
          System.out.println("Sent message successfully....");
+         return true;
       }catch (MessagingException mex) {
          mex.printStackTrace();
          return false;
