@@ -79,7 +79,46 @@ public class Server {
 
        });
        
+   
+   post("/detail/:bid", (request, response) -> {
+   int bid = Integer.parseInt( request.params(":bid") );
+   String status="";
+   String borrower="";
+   ResultSet re=null;
+   Connection c = null;
+   String word=null;
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+    System.out.println("forget: Open database successfully");
+    try{
+    Statement stmt = null;
+    Class.forName("org.sqlite.JDBC");
+    stmt = c.createStatement();
+    String sql = "SELECT * FROM BOOK WHERE BID='"+bid+"';";
+    re = stmt.executeQuery(sql);
+    status=re.getString("status");
+    re.close();
+    sql = "SELECT A1.name NAME FROM ACCOUNT A1, BORROW A2 WHERE A1.UID = A2.UID AND A2.BID = '"+bid+"';"; 
+    re = stmt.executeQuery(sql);
+    borrower=re.getString("NAME");
+    re.close();
+    sql = "SELECT A1.* FROM ACCOUNT A1, RESERVE A2 WHERE A1.UID = A2.UID AND A2.BID = '"+bid+"';";   
+    re = stmt.executeQuery(sql);  
+    word=BookReserve.loadBook( status ,borrower , re , bid);
+     re.close();
+     stmt.close();
+     c.close();
+     return word;
+   }catch(Exception e){
+   System.out.println("In bookdetail database wrong: "+e.getMessage());
    }
+});
+}
 static public boolean sendMail(String pw , String m){
 // Recipient's email ID needs to be mentioned.
 
