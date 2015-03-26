@@ -25,7 +25,7 @@ public class SQLoperation {
    return sql;
  }
 
- public static String insertBORROW(String uid,String bid,String deadline){
+ public static String insertBORROW(int uid,int bid,String deadline){
    System.out.println( "INSERT BORROW:" );
    String sql = "INSERT INTO BORROW (UID,BID,deadline) " +
                 "VALUES ("+uid+","+bid+",'"+deadline+"');";
@@ -35,7 +35,7 @@ public class SQLoperation {
    return sql;
  }
 
-public static String insertRESERVE(String uid,String bid){                                            
+public static String insertRESERVE(int uid,int bid){                                            
 
    System.out.println( "INSERT RESERVE:" );                                                                            
    String sql = "INSERT INTO RESERVE (UID,BID,deadline) " +                                                            

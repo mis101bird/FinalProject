@@ -10,6 +10,7 @@ import java.sql.*;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Transport;
+import java.util.Date;
 
 public class Server {
 
@@ -23,7 +24,11 @@ public class Server {
     public static void main(String[] args) {
 
        externalStaticFileLocation("static");
-
+       
+       get("/", (request, response) -> {
+       response.redirect("/login.html");
+       return null;
+       });
        get("/index", (request, response) -> {
         String user = request.session().attribute("user");     
         if (user==null) {
@@ -79,12 +84,74 @@ public class Server {
 
        });
        
+    get("loadbook/:bid", (request, response) -> {
+             System.out.println("go loadbook successfully");
+             int bid = Integer.parseInt( request.params(":bid") );
+             Date date = new Date();
+             int uid = Integer.parseInt(request.session().attribute("uid"));
+             Connection c = null;
+
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
+      System.exit(0); 
+    }                                                                                                                            
+    System.out.println("loadbook: Open database successfully");                                                                          
+    try{
+    Statement stmt = null;    
+    Class.forName("org.sqlite.JDBC");                                                                                            
+    stmt = c.createStatement();                                                                          
+    stmt.executeUpdate(SQLoperation.insertBORROW(uid,bid,date.toString()));
+    System.out.println("insert BORROW successfully");
+     stmt.close();
+     c.commit();
+     c.close();
+                                                                                                       
+    }catch( Exception e ){
+    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+    }   
+    response.redirect("/");
+    return null;
+    });
+    get("loadreserve/:bid", (request, response) -> {
+              System.out.println("go loadserver successfully");
+             int bid = Integer.parseInt( request.params(":bid") );
+             Date date = new Date();
+             int uid = Integer.parseInt(request.session().attribute("uid"));
+             Connection c = null;
+
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
+      System.exit(0); 
+    }                                                                                                                            
+    System.out.println("loadreserver: Open database successfully");                                                                          
+    try{
+    Statement stmt = null;    
+    Class.forName("org.sqlite.JDBC");                                                                                            
+    stmt = c.createStatement();                                                                          
+    stmt.executeUpdate(SQLoperation.insertRESERVE(uid,bid));
+    System.out.println("insert RESERVE successfully");
+     stmt.close();
+     c.commit();
+     c.close();
+                                                                                                       
+    }catch( Exception e ){
+    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+    }   
+    response.redirect("/");
+    return null;
    
-   post("/detail/:bid", (request, response) -> {
+    });
+   
+   get("/detail/:bid", (request, response) -> {
    int bid = Integer.parseInt( request.params(":bid") );
    String status="";
-   String borrower="";
-   ResultSet re=null;
+   String borrower="no one";
    Connection c = null;
    String word=null;
     try {
@@ -94,28 +161,30 @@ public class Server {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
     }
-    System.out.println("forget: Open database successfully");
+    System.out.println("detail: Open database successfully");
     try{
     Statement stmt = null;
     Class.forName("org.sqlite.JDBC");
     stmt = c.createStatement();
     String sql = "SELECT * FROM BOOK WHERE BID='"+bid+"';";
-    re = stmt.executeQuery(sql);
-    status=re.getString("status");
-    re.close();
+    ResultSet re2 = stmt.executeQuery(sql);
+    if(re2.next()){
+    status=re2.getString("status");
+    }
     sql = "SELECT A1.name NAME FROM ACCOUNT A1, BORROW A2 WHERE A1.UID = A2.UID AND A2.BID = '"+bid+"';"; 
-    re = stmt.executeQuery(sql);
-    borrower=re.getString("NAME");
-    re.close();
+    ResultSet re1 = stmt.executeQuery(sql);
+    if(re1.next()){
+    borrower=re1.getString("NAME");
+    }
     sql = "SELECT A1.* FROM ACCOUNT A1, RESERVE A2 WHERE A1.UID = A2.UID AND A2.BID = '"+bid+"';";   
-    re = stmt.executeQuery(sql);  
+    ResultSet re = stmt.executeQuery(sql);  
     word=BookReserve.loadBook( status ,borrower , re , bid);
-     re.close();
      stmt.close();
      c.close();
      return word;
    }catch(Exception e){
    System.out.println("In bookdetail database wrong: "+e.getMessage());
+   return null;
    }
 });
 }

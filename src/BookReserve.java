@@ -5,8 +5,8 @@ public class BookReserve{
   public static String loadBook(String status, String borrower , ResultSet re ,int bid){
   String word="<!DOCTYPE html>"+
 "<html><head>"+
-   "<link href='css/bootstrap.min.css' rel='stylesheet'>"+
-  "</head><body background='img/back.png'>"+
+   "<link href='../css/bootstrap.min.css' rel='stylesheet'>"+
+  "</head><body background='../img/back.png'>"+
     "<div class='container'>"+
       "<h2>Booking Details</h2>"+
 	 "<div class='panel panel-info'>"+
