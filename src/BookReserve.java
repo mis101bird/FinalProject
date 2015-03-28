@@ -1,6 +1,19 @@
 import java.sql.*;
 
 public class BookReserve{
+
+public static String error="<!DOCTYPE html><html>"+
+  "<head>"+
+  " <link href='../css/bootstrap.min.css' rel='stylesheet'>"+
+  "</head>"+
+  "<body background='../img/back.png'>"+
+    "<div class='container'>"+
+    "<h2>Booking Details</h2>"+
+    "<div class='panel panel-info'>"+
+    "<div class='panel-heading'>Status of Book</div>"+
+    "<div class='panel-body' id='status'><p><span class='glyphicon glyphicon-user'></span>  If you want to book, Please log in first!</p></div>"+
+    "</div></body></html>";
+
   
   public static String loadBook(String status, String borrower , ResultSet re ,int bid){
   String word="<!DOCTYPE html>"+
@@ -54,5 +67,8 @@ public class BookReserve{
     }            
    word+="</div></body></html>";    
    return word;       
+  }
+  static public String getError(){
+  return error;
   }
 }

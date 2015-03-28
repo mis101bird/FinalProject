@@ -33,12 +33,40 @@ public class Server {
         String user = request.session().attribute("user");     
         if (user==null) {
                 Session sess = request.session(true);
-                sess.attribute("user", "201461621");
+                sess.attribute("user", "1");
                 response.redirect("/index.html");
                 return null;
             }
-        response.redirect("/demo.html");
-        return null;
+   ResultSet re=null;
+   int uid = Integer.parseInt(request.session().attribute("user"));
+   ResultSet bo=null; 
+   Connection c = null;
+   String word="";
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }   
+    System.out.println("Indexlog: Open database successfully");
+    try{
+    Statement stmt = null;
+    Class.forName("org.sqlite.JDBC");
+    stmt = c.createStatement();
+    String sql = "SELECT A1.name name FROM BOOK A1, BORROW A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
+    bo = stmt.executeQuery(sql);
+    String sql2 = "SELECT A1.name name FROM BOOK A1, RESERVE A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
+    re = stmt.executeQuery(sql2);
+    word=Index.afterLogin(bo,re);
+     bo.close(); 
+     re.close(); 
+     stmt.close();
+     c.close();
+   }catch(Exception e){
+   System.out.println("In bookdetail database wrong: "+e.getMessage());
+   }
+        return word;
 
         });
        post("/forget", (request, response) -> {
@@ -53,7 +81,7 @@ public class Server {
       c = DriverManager.getConnection("jdbc:sqlite:database.db");
     } catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
-      System.exit(0); 
+      System.exit(0);
     }                                                                                                                            
     System.out.println("forget: Open database successfully");                                                                          
     try{
