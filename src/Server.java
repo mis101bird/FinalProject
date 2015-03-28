@@ -39,6 +39,7 @@ public class Server {
             }
    ResultSet re=null;
    int uid = Integer.parseInt(request.session().attribute("user"));
+   System.out.println("In user: "+uid);
    ResultSet bo=null; 
    Connection c = null;
    String word="";
@@ -52,19 +53,23 @@ public class Server {
     System.out.println("Indexlog: Open database successfully");
     try{
     Statement stmt = null;
+    Statement stmt2=null;
     Class.forName("org.sqlite.JDBC");
     stmt = c.createStatement();
-    String sql = "SELECT A1.name name FROM BOOK A1, BORROW A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
+    stmt2 = c.createStatement();
+    String sql = "SELECT A1.name name FROM BOOK A1,BORROW A2 WHERE A1.BID = A2.BID AND A2.UID ='"+uid+"';";
     bo = stmt.executeQuery(sql);
-    String sql2 = "SELECT A1.name name FROM BOOK A1, RESERVE A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
-    re = stmt.executeQuery(sql2);
+
+    String sql2 = "SELECT A1.name name FROM BOOK A1,RESERVE A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
+    re = stmt2.executeQuery(sql2);
     word=Index.afterLogin(bo,re);
      bo.close(); 
      re.close(); 
      stmt.close();
+    stmt2.close();
      c.close();
    }catch(Exception e){
-   System.out.println("In bookdetail database wrong: "+e.getMessage());
+   System.out.println("In indexlog database wrong: "+e.getMessage());
    }
         return word;
 
@@ -92,13 +97,13 @@ public class Server {
     ResultSet r = stmt.executeQuery(sql);
     if(r.next()){
     pw=r.getString("password");
-    mes="Please check your mail.";
+    mes="Here is your password: "+pw ;
     System.out.println("show old message successfully");
-    if(sendMail(pw,email)){
+   /* if(sendMail(pw,email)){
     System.out.println("send mail successfully");
     }else{
     System.out.println("send mail wrong");
-    }    
+    }*/    
     }
      r.close();
      stmt.close();
@@ -116,7 +121,7 @@ public class Server {
              System.out.println("go loadbook successfully");
              int bid = Integer.parseInt( request.params(":bid") );
              Date date = new Date();
-             int uid = Integer.parseInt(request.session().attribute("uid"));
+             int uid = Integer.parseInt(request.session().attribute("user"));
              Connection c = null;
 
     try {
@@ -177,6 +182,7 @@ public class Server {
     });
    
    get("/detail/:bid", (request, response) -> {
+   if(request.session().attribute("user")!=null){
    int bid = Integer.parseInt( request.params(":bid") );
    String status="";
    String borrower="no one";
@@ -213,6 +219,9 @@ public class Server {
    }catch(Exception e){
    System.out.println("In bookdetail database wrong: "+e.getMessage());
    return null;
+   }
+}else{
+   return BookReserve.getError();
    }
 });
 }

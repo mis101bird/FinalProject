@@ -30,14 +30,12 @@ String error="<!DOCTYPE html><html>"+
           " <th>Book's Name</th>"+
           "</tr></thead>"+
 "<tbody>";
-    int i=1;
     try{
     while(bo.next()){  
-    String n=bo.getString("name");
-    word+= "<tr>"+                                                                                                                                                                   
-            "<td>"+n+"</td>"+
+   String n=bo.getString("name");
+   System.out.println("bo book name:"+n);
+    word+= "<tr>"+                                                                                                                                                        "<td>"+n+"</td>"+
          "</tr>";
-    i++;
     }
     }catch( Exception e ){
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -54,14 +52,13 @@ String error="<!DOCTYPE html><html>"+
          " <tr><th>Book's Name</th>"+
          " </tr></thead>"+
        " <tbody>";
-    i=1;
     try{
     while(re.next()){  
-    String n=re.getString("name");
-    word+= "<tr>"+                                                                                                                                                                   
+  String n=re.getString("name");
+   System.out.println("re book name:"+n);
+     word+= "<tr>"+                                                                                                                                                                   
             "<td>"+n+"</td>"+
          "</tr>";
-    i++;
     }
     }catch( Exception e ){
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
