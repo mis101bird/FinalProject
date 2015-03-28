@@ -28,11 +28,12 @@ public class Server {
         String user = request.session().attribute("user");     
         if (user==null) {
                 Session sess = request.session(true);
-                sess.attribute("user", "201461621");
+                sess.attribute("user", 1);
                 response.redirect("/index.html");
                 return null;
             }
    ResultSet re=null;
+   int uid = request.session().attribute("user");
    ResultSet bo=null; 
    Connection c = null;
    String word="";
@@ -57,11 +58,10 @@ public class Server {
      re.close(); 
      stmt.close();
      c.close();
-     return word;
    }catch(Exception e){
    System.out.println("In bookdetail database wrong: "+e.getMessage());
    }
-        return Index.afterLogin(ResultSet bo , ResultSet re);
+        return word;
 
         });
        post("/forget", (request, response) -> {
@@ -143,6 +143,7 @@ public class Server {
      return word;
    }catch(Exception e){
    System.out.println("In bookdetail database wrong: "+e.getMessage());
+   return null;
    }
 });
 }

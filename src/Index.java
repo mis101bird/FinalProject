@@ -54,7 +54,7 @@ String error="<!DOCTYPE html><html>"+
          " <tr><th>Book's Name</th>"+
          " </tr></thead>"+
        " <tbody>";
-    int i=1;
+    i=1;
     try{
     while(re.next()){  
     String n=re.getString("name");
@@ -73,7 +73,7 @@ String error="<!DOCTYPE html><html>"+
   
    return word;       
   }
-  static public String getError(){
+/*  static public String getError(){
   return error;
-  }
+  }*/
 }

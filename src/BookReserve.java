@@ -2,7 +2,7 @@ import java.sql.*;
 
 public class BookReserve{
 
-String error="<!DOCTYPE html><html>"+
+public static String error="<!DOCTYPE html><html>"+
   "<head>"+
   " <link href='../css/bootstrap.min.css' rel='stylesheet'>"+
   "</head>"+
