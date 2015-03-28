@@ -32,8 +32,36 @@ public class Server {
                 response.redirect("/index.html");
                 return null;
             }
-        response.redirect("/demo.html");
-        return null;
+   ResultSet re=null;
+   ResultSet bo=null; 
+   Connection c = null;
+   String word="";
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }   
+    System.out.println("Indexlog: Open database successfully");
+    try{
+    Statement stmt = null;
+    Class.forName("org.sqlite.JDBC");
+    stmt = c.createStatement();
+    String sql = "SELECT A1.name name FROM BOOK A1, BORROW A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
+    bo = stmt.executeQuery(sql);
+    String sql2 = "SELECT A1.name name FROM BOOK A1, RESERVE A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
+    re = stmt.executeQuery(sql2);
+    word=Index.afterLogin(bo,re);
+     bo.close(); 
+     re.close(); 
+     stmt.close();
+     c.close();
+     return word;
+   }catch(Exception e){
+   System.out.println("In bookdetail database wrong: "+e.getMessage());
+   }
+        return Index.afterLogin(ResultSet bo , ResultSet re);
 
         });
        post("/forget", (request, response) -> {
@@ -48,7 +76,7 @@ public class Server {
       c = DriverManager.getConnection("jdbc:sqlite:database.db");
     } catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
-      System.exit(0); 
+      System.exit(0);
     }                                                                                                                            
     System.out.println("forget: Open database successfully");                                                                          
     try{
@@ -78,8 +106,7 @@ public class Server {
              return mes;  
 
        });
-       
-   
+          
    post("/detail/:bid", (request, response) -> {
    int bid = Integer.parseInt( request.params(":bid") );
    String status="";
