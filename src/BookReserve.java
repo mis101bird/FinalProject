@@ -53,16 +53,16 @@ public static String error="<!DOCTYPE html><html>"+
    " <div class='btn-group btn-group-justified'>"+
 	"<div class='btn-group'>";
     if(status.equals("free")){
-     word+="<a href='loadbook/"+bid+"'><button type='button' id='b' class='btn btn-default'>Book now</button></a>"+
+     word+="<a href='../loadbook/"+bid+"'><button type='button' id='b' class='btn btn-default'>Book now</button></a>"+
 	"</div>"+
 	"<div class='btn-group'>"+
         "<button type='button' id='r' class='btn btn-default' disabled >Reserve now</button>"+
 	"</div>";    
     }else{
-     word+="<a href='loadbook/"+bid+"'><button type='button' id='b' class='btn btn-default' disabled >Book now</button></a>"+                                                                                       
+     word+="<a href='../loadbook/"+bid+"'><button type='button' id='b' class='btn btn-default' disabled >Book now</button></a>"+                                                                                       
         "</div>"+
         "<div class='btn-group'>"+                                                                                                                                                                    
-        "<a href='loadreserve/"+bid+"'><button type='button' id='r' class='btn btn-default'>Reserve now</button></a>"+                                                                                    
+        "<a href='../loadreserve/"+bid+"'><button type='button' id='r' class='btn btn-default'>Reserve now</button></a>"+                                                                                    
         "</div>";  
     }            
    word+="</div></body></html>";    

@@ -38,6 +38,47 @@ public class Server {
                 "</html>\n";
 
        externalStaticFileLocation("static");
+               //LOGIN
+        post("/login", (request, response) -> {
+            Connection c = null;
+            String name = request.queryParams("account");
+            String pass = request.queryParams("password");
+            try {
+                Class.forName("org.sqlite.JDBC");
+                c = DriverManager.getConnection("jdbc:sqlite:database.db");
+            } catch ( Exception e ) {
+                System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+                System.exit(0);
+            }
+            System.out.println("login: Open database successfully");
+            try{
+                Statement stmt = null;
+                Class.forName("org.sqlite.JDBC");
+                stmt = c.createStatement();
+                String sql = "SELECT * FROM ACCOUNT WHERE name='"+name+"';";
+                ResultSet r = stmt.executeQuery(sql);
+                
+                while(r.next()){
+                    String pw=r.getString("password");
+                    String us=r.getString("UID");
+                    if (pass.equals(pw)) {
+                        Session sess = request.session(true);
+                        sess.attribute("user", us);
+                        System.out.println("Successfully login.");
+                        response.redirect("/logout.html");
+                    }
+                }
+                r.close();
+                stmt.close();
+                c.close();
+                
+            }catch( Exception e ){
+                System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            }
+            response.redirect("/login.html");
+            return null;    
+        });
+        
        get("/out", (request, response) -> {
        System.out.println("in logout!");
        request.session().removeAttribute("user");
@@ -51,8 +92,6 @@ public class Server {
        get("/index", (request, response) -> {
         String user = request.session().attribute("user");     
         if (user==null) {
-                Session sess = request.session(true);
-                sess.attribute("user", "1");
                 response.redirect("/index.html");
                 return null;
             }
@@ -188,7 +227,6 @@ public class Server {
     Class.forName("org.sqlite.JDBC");                                                                                            
     stmt = c.createStatement();                                                                          
     stmt.executeUpdate(SQLoperation.insertBORROW(uid,bid,date.toString()));
-      c.commit();
     System.out.println("insert BORROW successfully");
     String sql = "UPDATE BOOK set status = 'no free' where BID='"+bid+"';";
     stmt.executeUpdate(sql);
@@ -402,7 +440,7 @@ public class Server {
 		int count = 0;
 		while(r.next()){  
 			count ++;
-    			mainPage= mainPage + "<tr><th>Book ID</th><th>Name</th><th>Author</th><th>Status</th><th>Cover</th><th>Description</th><th>Category</th></tr><tr><td>" + r.getString("BID")+"</td><td>"+r.getString("name")+"</td><td>"+r.getString("author")+"</td><td>"+r.getString("status")+"</td><td><img src='/img/"+r.getString("cover")+"' height='100' width='100'/></td><td>"+r.getString("description")+"</td><td>"+r.getString("category")+"</td></tr>";
+    			mainPage= mainPage + "<tr><th>Book ID</th><th>Name</th><th>Author</th><th>Status</th><th>Cover</th><th>Description</th><th>Category</th></tr><tr><td>"+r.getString("BID")+"<br><a href='../detail/"+r.getString("BID")+"'><button>Go To The Reservation Page</button></a>"+"</td><td>"+r.getString("name")+"</td><td>"+r.getString("author")+"</td><td>"+r.getString("status")+"</td><td><img src='/img/"+r.getString("cover")+"' height='100' width='100'/></td><td>"+r.getString("description")+"</td><td>"+r.getString("category")+"</td></tr>";
 			System.out.println(rs);
 		}
 	     if ( count == 0 ) {
@@ -504,7 +542,7 @@ public class Server {
 
 			mainPage= mainPage + "<tr><th>Book ID</th><th>Name</th><th>Author</th><th>Status</th><th>Cover</th><th>Description</		th><th>Category</th></tr><tr><td>" + r.getString("BID")+"</td><td>"+r.getString("name")+"</td><td>"+r.getString("author")+"</td><td>"+r.getString("status")+"</td><td><img src='/img/"+r.getString("cover")+"' height='100' width='100'/></td><td>"+r.getString("description")+"</td><td>"+r.getString("category")+"</td></tr>";
 	
-				mainPage=mainPage+"</table>"+"<P>IF you wish to reserve this book, click on Go To The Reservation page button.</P> 					"+"<a href='../detail/"+id+"'><button>Go To The Reservation Page</button></a>";
+				mainPage=mainPage+"</table>"+"<P>IF you wish to reserve this book, click on Go To The Reservation page button.</P>"+"<a href='../detail/"+id+"'><button>Go To The Reservation Page</button></a>";
 
 
 				 r.close();

@@ -67,7 +67,12 @@ String error="<!DOCTYPE html><html>"+
     word+="</tbody>"+
     "</div></table>"+
       "</div></div>"+
-	 "</div></body></html>";
+	 "</div><form class='navbar-form navbar-left' action='search' method='POST' >"+
+"<div class='form-group'>"+
+"<input type='text' class='form-control' placeholder='Search Book' name='search'></div>"+
+"<button type='submit' class='btn btn-default'>Submit</button></form>"+
+"<a href='project'><button type='button' class='btn btn-default navbar-btn'>Surf Books</button></a>"+
+"</body></html>";
   
    return word;       
   }
