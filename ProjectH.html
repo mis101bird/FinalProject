@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+#Header {
+
+font-weight: 700
+
+
+}
+nav {
+   width:22em;
+   @media (max-width: 800px) {
+     width:15em;
+    }
+   @media (max-width: 600px) {
+     width:8em;
+    }
+   @media (max-width: 410px) {
+     width:6em;
+    }
+}
+
+ul {
+  list-style-type:none;
+  width:100%;
+}
+
+li {
+  padding:10px;
+  border-radius:5px;
+  border:1px solid #16525e;
+  background-color:#22707f;
+  transition: background-color .5s;
+  -moz-transition: background-color .5s;
+  -webkit-transition: background-color .5s;
+  -o-transition: background-color .5s;
+  
+  
+  @media (max-width: 410px) {
+    padding:5px;
+    border-radius:0;
+    }
+  
+  &:hover {
+    background-color:#36b2cc;
+  }
+  
+  &:before {
+    content: ' ';
+	  height: 0;
+	  position: absolute;
+	  width: 0;
+	  border: 10px solid transparent;
+	  border-left-color: #333;
+    @media (max-width: 410px) {
+      border:none;
+      
+    }
+    
+  }
+
+}
+
+li a {
+  text-decoration:none;
+  color:#fff;
+  padding-left:20px;
+  
+}
+
+.desc {
+  font-size:.8em;
+  color:#FFD700;
+  @media (max-width: 600px) {
+      display:none;
+    }
+}
+
+.long {
+   color:#FFD700;	
+  @media (max-width:800px) {
+    display:none;
+    
+  }
+}
+
+
+
+</style>
+
+
+<meta charset="ISO-8859-1">
+<title>Project</title>
+</head>
+<body background="../img/back.png">
+<form action="/search"  method="POST">
+<input name="search" id="search" type="text" value="Search for books by name" /><input type="submit"></form>
+<br/><br/>
+<p id="Header"> Please choose one of the following genres for viewing the available books.</p>
+<nav>
+  <ul>
+    <li>
+      <a href="/project/Fiction">
+        Fiction <span class="desc">- Welcome to the fiction genre<span class="long">, where you can find all fiction books</span></span>
+       </a>
+    </li>
+    <li>
+      <a href="/project/Children">
+        Children <span class="desc">- Welcome to the children genre<span class="long">.  Where you can find all Children books.</span></span>
+       </a>
+    </li>
+    <li>
+      <a href="/project/Art">
+        Art <span class="desc">Welcome to the Art genre<span class="long"> Where you can find all Art books.</span></span>
+       </a>
+    </li>
+    <li>
+      <a href="/project/Culture">
+        Culture <span class="desc">Welcome to the culture genre <span class="long"> where you can find all of the culture books</span></span>
+       </a>
+       </li>
+       <li>
+       <a href="/project/Drama">
+        Drama <span class="desc">Welcome to the Drama genre <span class="long"> where you can find all of the Drama books</span></span>
+       </a>
+       </li>
+       <li>   
+       <a href="/project/Humor">
+        Humor <span class="desc">Welcome to the Humor genre <span class="long"> where you can find all of the Humor books</span></span>
+       </a>
+       </li>
+       <li>
+       <a href="/project/Horror">
+        Horror <span class="desc">Welcome to the Horror genre <span class="long"> where you can find all of the Horror books</span></span>
+       </a>
+       </li>
+       <li>
+       <a href="/project/Classic">
+        Classic <span class="desc">Welcome to the Classic genre <span class="long"> where you can find all of the Classic books</span></span>
+       </a>
+       </li>
+       <li>
+       <a href="/project/Adventure">
+        Adventure <span class="desc">Welcome to the Adventure genre <span class="long"> where you can find all of the Adventure books</span></span>
+       </a>
+    </li>
+  </ul>
+</nav>
+</body>
+</html>
