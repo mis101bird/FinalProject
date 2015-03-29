@@ -38,7 +38,12 @@ public class Server {
                 "</html>\n";
 
        externalStaticFileLocation("static");
-       
+       get("/out", (request, response) -> {
+       System.out.println("in logout!");
+       request.session().removeAttribute("user");
+       response.redirect("/login.html");
+       return null;
+       });       
        get("/", (request, response) -> {
        response.redirect("/login.html");
        return null;
