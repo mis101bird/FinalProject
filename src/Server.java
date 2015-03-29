@@ -46,8 +46,8 @@ public class Server {
        get("/index", (request, response) -> {
         String user = request.session().attribute("user");     
         if (user==null) {
-               // Session sess = request.session(true);
-               // sess.attribute("user", "1");
+                Session sess = request.session(true);
+                sess.attribute("user", "1");
                 response.redirect("/index.html");
                 return null;
             }
@@ -71,7 +71,7 @@ public class Server {
     Class.forName("org.sqlite.JDBC");
     stmt = c.createStatement();
     stmt2 = c.createStatement();
-    String sql = "SELECT A1.name name FROM BOOK A1,BORROW A2 WHERE A1.BID = A2.BID AND A2.UID ='"+uid+"';";
+    String sql = "SELECT A1.name name,A1.BID BID FROM BOOK A1,BORROW A2 WHERE A1.BID = A2.BID AND A2.UID ='"+uid+"';";
     bo = stmt.executeQuery(sql);
 
     String sql2 = "SELECT A1.name name FROM BOOK A1,RESERVE A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
@@ -88,6 +88,38 @@ public class Server {
         return word;
 
         });
+       get("/return/:bid", (request, response) -> {
+                    System.out.println("go return successfully");
+             int bid = Integer.parseInt( request.params(":bid") );
+             Connection c = null;
+
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
+      System.exit(0); 
+    }                                                                                                                            
+    System.out.println("return book: Open database successfully");                                                                          
+    try{
+    Statement stmt = null;    
+    Class.forName("org.sqlite.JDBC");                                                                                            
+    stmt = c.createStatement(); 
+    String sql1="DELETE from BORROW where BID='"+bid+"';";                                                                         
+    stmt.executeUpdate(sql1);
+    c.commit();
+    String sql = "UPDATE BOOK set status = 'free' where BID='"+bid+"';";
+    stmt.executeUpdate(sql);
+    c.commit();
+    stmt.close();
+     c.close();
+                                                                                                       
+    }catch( Exception e ){
+    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+    }   
+    response.redirect("/index");
+    return null;
+       });
        post("/forget", (request, response) -> {
            String pw="";
            String mes="We cannot find your info. Please submit again." ;
@@ -151,9 +183,12 @@ public class Server {
     Class.forName("org.sqlite.JDBC");                                                                                            
     stmt = c.createStatement();                                                                          
     stmt.executeUpdate(SQLoperation.insertBORROW(uid,bid,date.toString()));
+      c.commit();
     System.out.println("insert BORROW successfully");
-     stmt.close();
-     c.commit();
+    String sql = "UPDATE BOOK set status = 'no free' where BID='"+bid+"';";
+    stmt.executeUpdate(sql);
+    c.commit();
+    stmt.close();
      c.close();
                                                                                                        
     }catch( Exception e ){

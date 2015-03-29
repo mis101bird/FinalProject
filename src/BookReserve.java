@@ -53,16 +53,16 @@ public static String error="<!DOCTYPE html><html>"+
    " <div class='btn-group btn-group-justified'>"+
 	"<div class='btn-group'>";
     if(status.equals("free")){
-     word+="<button type='button' id='b' class='btn btn-default' onClick='loadbook/"+bid+"'>Book now</button>"+
+     word+="<a href='loadbook/"+bid+"'><button type='button' id='b' class='btn btn-default'>Book now</button></a>"+
 	"</div>"+
 	"<div class='btn-group'>"+
-        "<button type='button' id='r' class='btn btn-default' onClick='loadreserve/"+bid+"' disabled >Reserve now</button>"+
+        "<button type='button' id='r' class='btn btn-default' disabled >Reserve now</button>"+
 	"</div>";    
     }else{
-     word+="<button type='button' id='b' class='btn btn-default' onClick='loadbook/"+bid+"' disabled >Book now</button>"+                                                                                       
+     word+="<a href='loadbook/"+bid+"'><button type='button' id='b' class='btn btn-default' disabled >Book now</button></a>"+                                                                                       
         "</div>"+
         "<div class='btn-group'>"+                                                                                                                                                                    
-        "<button type='button' id='r' class='btn btn-default' onClick='loadreserve/"+bid+"'>Reserve now</button>"+                                                                                    
+        "<a href='loadreserve/"+bid+"'><button type='button' id='r' class='btn btn-default'>Reserve now</button></a>"+                                                                                    
         "</div>";  
     }            
    word+="</div></body></html>";    

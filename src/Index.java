@@ -33,8 +33,9 @@ String error="<!DOCTYPE html><html>"+
     try{
     while(bo.next()){  
    String n=bo.getString("name");
+   int b=bo.getInt("BID");
    System.out.println("bo book name:"+n);
-    word+= "<tr>"+                                                                                                                                                        "<td>"+n+"</td>"+
+    word+= "<tr>"+                                                                                                                                                        "<td><a href='return/"+b+"'><button type='button' class='btn btn-danger'>return</button></a>"+n+"</td>"+
          "</tr>";
     }
     }catch( Exception e ){
