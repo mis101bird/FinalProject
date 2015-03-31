@@ -242,9 +242,9 @@ public class Server {
     });
     get("loadreserve/:bid", (request, response) -> {
               System.out.println("go loadserver successfully");
-             int bid = Integer.parseInt( request.params(":bid") );
+             int bid = Integer.parseInt(request.params(":bid") );
              Date date = new Date();
-             int uid = Integer.parseInt(request.session().attribute("uid"));
+             int uid = Integer.parseInt(request.session().attribute("user"));
              Connection c = null;
 
     try {
@@ -262,7 +262,6 @@ public class Server {
     stmt.executeUpdate(SQLoperation.insertRESERVE(uid,bid));
     System.out.println("insert RESERVE successfully");
      stmt.close();
-     c.commit();
      c.close();
                                                                                                        
     }catch( Exception e ){

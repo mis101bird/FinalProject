@@ -38,7 +38,7 @@ public class SQLoperation {
 public static String insertRESERVE(int uid,int bid){                                            
 
    System.out.println( "INSERT RESERVE:" );                                                                            
-   String sql = "INSERT INTO RESERVE (UID,BID,deadline) " +                                                            
+   String sql = "INSERT INTO RESERVE (UID,BID) " +                                                            
                 "VALUES ("+uid+","+bid+");";                                                           
    System.out.println( "UID = " + uid );                                                                              
    System.out.println( "BID = " + bid );                                                                   
