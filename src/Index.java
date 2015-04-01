@@ -80,7 +80,7 @@ String word="<!DOCTYPE html><html><head><link href='css/bootstrap.min.css' rel='
   "function deleteAccount( s ){"+
 "console.log('in deleteAccount');"+
 "var xmlhttp;"+
-"var PostURL='deletenote/'+s;"+
+"var PostURL='deleteuser/'+s;"+
 "if (window.XMLHttpRequest)"+
   "{"+
   "xmlhttp=new XMLHttpRequest();"+
@@ -93,8 +93,8 @@ String word="<!DOCTYPE html><html><head><link href='css/bootstrap.min.css' rel='
 "xmlhttp.onreadystatechange = function() {"+
             "if ( xmlhttp.readyState != 4) return;"+
             "if ( xmlhttp.status == 200 || xmlhttp.status == 400) {"+
-			"console.log('delete Account:got Ajax response');"+
-            "document.getElementById('a'+s).innerHYML='';"+
+			"console.log('delete Account:got Ajax response:'+s);"+
+            "document.getElementById('a'+s).innerHTML='';"+
             "}"+
         "};"+
 "xmlhttp.send();"+
@@ -103,7 +103,7 @@ String word="<!DOCTYPE html><html><head><link href='css/bootstrap.min.css' rel='
 "{"+
 "console.log('in deleteBook');"+
 "var xmlhttp;"+
-"var PostURL='deletenote/'+s;"+
+"var PostURL='deletebook/'+s;"+
 "if (window.XMLHttpRequest){" +
   "xmlhttp=new XMLHttpRequest();"+
   "}"+

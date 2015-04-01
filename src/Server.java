@@ -78,6 +78,61 @@ public class Server {
             response.redirect("/login.html");
             return null;    
         });
+       post("/deleteuser/:uid", (request, response) -> { 
+                           System.out.println("go deleteuser successfully");
+             int uid = Integer.parseInt( request.params(":uid") );
+             Connection c = null;
+
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
+      System.exit(0); 
+    }                                                                                                                            
+    System.out.println("deleteuser: Open database successfully");                                                             
+    try{
+    Statement stmt = null;    
+    Class.forName("org.sqlite.JDBC");                                               
+    stmt = c.createStatement(); 
+    String sql1="DELETE from ACCOUNT where UID='"+uid+"';";                                                                         
+    stmt.executeUpdate(sql1);
+    stmt.close();
+     c.close();
+                                                                                                       
+    }catch( Exception e ){
+    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+    }   
+    return "";
+       });
+       post("/deletebook/:bid", (request, response) -> { 
+                           System.out.println("go deletebook successfully");
+             int bid = Integer.parseInt( request.params(":bid") );
+             Connection c = null;
+
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
+      System.exit(0); 
+    }                                                                                                                            
+    System.out.println("deletebook: Open database successfully");                                                             
+    try{
+    Statement stmt = null;    
+    Class.forName("org.sqlite.JDBC");                                                                                            
+    stmt = c.createStatement(); 
+    String sql1="DELETE from BOOK where BID='"+bid+"';";                                                                         
+    stmt.executeUpdate(sql1);
+    c.commit();
+    stmt.close();
+     c.close();
+                                                                                                       
+    }catch( Exception e ){
+    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+    }   
+    return null;
+       });
        get("/admin", (request, response) -> {
        System.out.println("in Admin");
           ResultSet user=null;
@@ -183,7 +238,7 @@ public class Server {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
       System.exit(0); 
     }                                                                                                                            
-    System.out.println("return book: Open database successfully");                                                                          
+    System.out.println("return book: Open database successfully");                                                             
     try{
     Statement stmt = null;    
     Class.forName("org.sqlite.JDBC");                                                                                            
