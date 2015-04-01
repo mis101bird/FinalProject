@@ -78,7 +78,35 @@ public class Server {
             response.redirect("/login.html");
             return null;    
         });
-       get("/deleteuser/:uid", (request, response) -> { 
+       post("/adminaccount/:uid", (request, response) -> {
+       System.out.println("go adminaccount successfully");
+             int uid = Integer.parseInt( request.params(":uid") );
+             Connection c = null;
+
+    try {
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:database.db");
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );                                                      
+      System.exit(0); 
+    }                                                                                                                            
+    System.out.println("adminaccount: Open database successfully");                                                             
+    try{
+    Statement stmt = null;    
+    Class.forName("org.sqlite.JDBC");                                               
+    stmt = c.createStatement(); 
+    String sql1="INSERT INTO ADMIN (UID) " +
+            "VALUES ("+uid+");";                                                                     
+    stmt.executeUpdate(sql1);
+    stmt.close();
+     c.close();
+                                                                                                       
+    }catch( Exception e ){
+    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+    }   
+    return "";
+       });
+       post("/deleteuser/:uid", (request, response) -> { 
                            System.out.println("go deleteuser successfully");
              int uid = Integer.parseInt( request.params(":uid") );
              Connection c = null;
@@ -93,9 +121,11 @@ public class Server {
     System.out.println("deleteuser: Open database successfully");                                                             
     try{
     Statement stmt = null;    
-    Class.forName("org.sqlite.JDBC");                                                                                            
+    Class.forName("org.sqlite.JDBC");                                               
     stmt = c.createStatement(); 
     String sql1="DELETE from ACCOUNT where UID='"+uid+"';";                                                                         
+    stmt.executeUpdate(sql1);
+    sql1="DELETE from ADMIN where UID='"+uid+"';";                                                           
     stmt.executeUpdate(sql1);
     stmt.close();
      c.close();
@@ -105,7 +135,7 @@ public class Server {
     }   
     return "";
        });
-       get("/deletebook/:bid", (request, response) -> { 
+       post("/deletebook/:bid", (request, response) -> { 
                            System.out.println("go deletebook successfully");
              int bid = Integer.parseInt( request.params(":bid") );
              Connection c = null;
@@ -137,6 +167,7 @@ public class Server {
        System.out.println("in Admin");
           ResultSet user=null;
    	  ResultSet book=null; 
+          ResultSet admin=null; 
    Connection c = null;
    String word="";
     try {
@@ -150,16 +181,21 @@ public class Server {
     try{
     Statement stmt = null;
     Statement stmt2=null;
+    Statement stmt3=null;
     Class.forName("org.sqlite.JDBC");
     stmt = c.createStatement();
     stmt2 = c.createStatement();
+    stmt3 = c.createStatement();
     String sql = "SELECT * FROM ACCOUNT;";
     user = stmt.executeQuery(sql);
     String sql2 = "SELECT * FROM BOOK;";
     book = stmt2.executeQuery(sql2);
-    word=Index.admin(user , book );
+    String sql3 = "SELECT * FROM ADMIN;";
+    admin = stmt3.executeQuery(sql3);
+    word=Index.admin(user , book , admin);
      book.close(); 
      user.close(); 
+     admin.close(); 
      stmt.close();
     stmt2.close();
      c.close();
@@ -186,6 +222,7 @@ public class Server {
                 return null;
             }
    ResultSet re=null;
+   esultSet ad=null; 
    int uid = Integer.parseInt(request.session().attribute("user"));
    System.out.println("In user: "+uid);
    ResultSet bo=null; 
@@ -201,18 +238,25 @@ public class Server {
     System.out.println("Indexlog: Open database successfully");
     try{
     Statement stmt = null;
+    Statement stmt1 = null;
     Statement stmt2=null;
     Class.forName("org.sqlite.JDBC");
     stmt = c.createStatement();
     stmt2 = c.createStatement();
+    stmt1 = c.createStatement();
     String sql = "SELECT A1.name name,A1.BID BID FROM BOOK A1,BORROW A2 WHERE A1.BID = A2.BID AND A2.UID ='"+uid+"';";
     bo = stmt.executeQuery(sql);
-
     String sql2 = "SELECT A1.name name FROM BOOK A1,RESERVE A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
     re = stmt2.executeQuery(sql2);
+    String sql3 = "SELECT * FROM ADMIN;";
+    ad = stmt1.executeQuery(sql3);
     word=Index.afterLogin(bo,re);
-    if(uid==1){
+    while(ad.next()){
+    String a= ad.getString("UID");
+    if((""+uid).equals(a)){
      word+="<a href='admin' class='btn btn-primary btn-primary'>Admin</a>";
+     break;
+    }
     }
     word+="</body></html>";
      bo.close(); 

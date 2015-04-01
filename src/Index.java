@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Index{
 
@@ -75,53 +76,14 @@ String error="<!DOCTYPE html><html>"+
   
    return word;       
   }
-public static String admin(ResultSet user , ResultSet book ){
-String word="<!DOCTYPE html><html><head><link href='css/bootstrap.min.css' rel='stylesheet'><script>"+
-  "function deleteAccount( s ){"+
-"console.log('in deleteAccount');"+
-"var xmlhttp;"+
-"var PostURL='deleteuser/'+s;"+
-"if (window.XMLHttpRequest)"+
-  "{"+
-  "xmlhttp=new XMLHttpRequest();"+
-  "}"+
-"else"+
-  "{"+
-  "xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');"+
-  "}"+
-"xmlhttp.open('POST', PostURL, true );"+
-"xmlhttp.onreadystatechange = function() {"+
-            "if ( xmlhttp.readyState != 4) return;"+
-            "if ( xmlhttp.status == 200 || xmlhttp.status == 400) {"+
-			"console.log('delete Account:got Ajax response:'+s);"+
-            "document.getElementById('a'+s).innerHTML='';"+
-            "}"+
-        "};"+
-"xmlhttp.send();"+
-"}"+
-"function deleteBook( s )"+
-"{"+
-"console.log('in deleteBook');"+
-"var xmlhttp;"+
-"var PostURL='deletebook/'+s;"+
-"if (window.XMLHttpRequest){" +
-  "xmlhttp=new XMLHttpRequest();"+
-  "}"+
-"else"+
-  "{"+
-  "xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');"+
-  "}"+
-"xmlhttp.open('POST', PostURL, true );"+
-"xmlhttp.onreadystatechange = function() {"+
-            "if ( xmlhttp.readyState != 4) return;"+
-            "if ( xmlhttp.status == 200 || xmlhttp.status == 400) {"+
-			"console.log('delete Book:got Ajax response');"+
-            "document.getElementById('b'+s).innerHYML='';"+
-            "}"+
-        "};"+
-"xmlhttp.send();"+
-"}"+
-  "</script></head>"+
+public static String admin(ResultSet user , ResultSet book , ResultSet admin){
+ArrayList<String> administ =null;
+try{
+administ = Index.toArray(admin);
+}catch(Exception e){
+System.out.println("Index Admin Array:" +e.getMessage());
+}
+String word="<!DOCTYPE html><html><head><link href='css/bootstrap.min.css' rel='stylesheet'><script src='admin.js'></script></head>"+
   "<body background='img/back.png' >"+
     "<div class='container'>"+
       "<br><br><br><br><h2>Administration</h2>"+
@@ -134,15 +96,30 @@ String word="<!DOCTYPE html><html><head><link href='css/bootstrap.min.css' rel='
             "<th>Name</th><th>Password</th><th>Email</th><th>Option</th>"+
           "</tr></thead><tbody>";
     try{
-    while(user.next()){  
+    while(user.next()){
+    boolean ad=false;
     String n=user.getString("name");
     String pw=user.getString("password");
     String e=user.getString("email");
     String id=user.getString("UID");
+    for(String aa : administ){
+    if(id.equals(aa)){
+     ad=true;
+     break;
+    }
+    }
+    if(ad){
+word+= "<tr id='a"+id+"'>"+
+           "<td>"+n  +"</td>"+                                                                                                                                                                          
+            "<td>"+pw+"</td>"+"<td>"+e+"</td>"+"<td id='ao"+id+"'><a href='javascript:deleteAccount("+id+");' class='btn btn-primary btn-warning'>Delete</a><span class='glyphicon glyphicon-star'></span></td>"+
+         "</tr>";
+    }else{
     word+= "<tr id='a"+id+"'>"+
            "<td>"+n  +"</td>"+                                                                                                                                                                          
-            "<td>"+pw+"</td>"+"<td>"+e+"</td>"+"<td><a href='javascript:deleteAccount("+id+");' class='btn btn-primary btn-warning'>Delete</a></td>"+
+            "<td>"+pw+"</td>"+"<td>"+e+"</td>"+"<td id='ao"+id+"'><a href='javascript:deleteAccount("+id+");' class='btn btn-primary btn-warning'>Delete</a>"+
+            "<a href='javascript:Admin("+id+");' class='btn btn-primary btn-danger'>Admin</a></td>"+
          "</tr>";
+    }
     }
     }catch( Exception e ){
       System.err.println( e.getClass().getName() + ": " + e.getMessage());
@@ -174,6 +151,16 @@ String word="<!DOCTYPE html><html><head><link href='css/bootstrap.min.css' rel='
 	  "</div></body>"+
 "</html>";
 return word;
+}
+static ArrayList<String> toArray(ResultSet rs) throws Exception{
+    ArrayList<String> al = new ArrayList<String>();
+    while (rs.next()) {
+                    String value = rs.getString("UID");
+                    al.add(value);
+            }
+           
+            
+    return al;
 }
 }
 
