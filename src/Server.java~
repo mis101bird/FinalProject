@@ -156,10 +156,6 @@ public class Server {
     String sql2 = "SELECT A1.name name FROM BOOK A1,RESERVE A2 WHERE A1.BID = A2.BID AND A2.UID = '"+uid+"';";
     re = stmt2.executeQuery(sql2);
     word=Index.afterLogin(bo,re);
-    if(uid==1){
-     word+="<a href='admin' class='btn btn-primary btn-primary'>Admin</a>";
-    }
-    word+="</body></html>";
      bo.close(); 
      re.close(); 
      stmt.close();

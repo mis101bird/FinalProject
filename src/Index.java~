@@ -71,7 +71,8 @@ String error="<!DOCTYPE html><html>"+
 "<div class='form-group'>"+
 "<input type='text' class='form-control' placeholder='Search Book' name='search'></div>"+
 "<button type='submit' class='btn btn-default'>Submit</button></form>"+
-"<a href='project'><button type='button' class='btn btn-default navbar-btn'>Surf Books</button></a>";
+"<a href='project'><button type='button' class='btn btn-default navbar-btn'>Surf Books</button></a>"+
+"</body></html>";
   
    return word;       
   }
