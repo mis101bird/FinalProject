@@ -23,7 +23,7 @@ String error="<!DOCTYPE html><html>"+
   "  <div class='container'>"+
      " <h2>My Books Info</h2>"+
 	" <div class='panel panel-danger'>"+
-" <div class='panel-heading'>Books which you aren't returned</div>"+
+" <div class='panel-heading'>Books that aren't returned</div>"+
      " <div class='panel-body' id='status'>"+
 " <div class='table-responsive'>"+
       "<table class='table'>"+
