@@ -1,3 +1,5 @@
+This is how we do it.
+
 # FinalProject
 
 Dear all
